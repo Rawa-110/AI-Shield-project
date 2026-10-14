@@ -1,0 +1,160 @@
+/* ============================================
+   Navigation Bar Styles
+   ============================================ */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  height: var(--navbar-height);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border-bottom: var(--border-glass);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--container-padding);
+}
+
+/* ── Logo ── */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  cursor: default;
+  user-select: none;
+}
+
+.navbar-logo .shield-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-accent-dim), var(--color-accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-glow-accent);
+  position: relative;
+  overflow: hidden;
+}
+.navbar-logo .shield-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2));
+}
+
+.navbar-logo .logo-text {
+  display: flex;
+  flex-direction: column;
+}
+.navbar-logo .logo-title {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+.navbar-logo .logo-subtitle {
+  font-size: var(--fs-2xs);
+  color: var(--color-accent);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+/* ── Nav Links ── */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-5);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-secondary);
+  background: transparent;
+  transition: all var(--tr-normal);
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-link .nav-icon {
+  font-size: var(--fs-lg);
+  transition: transform var(--tr-spring);
+}
+
+.nav-link:hover {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+.nav-link:hover .nav-icon {
+  transform: scale(1.1);
+}
+
+.nav-link.active {
+  color: var(--color-accent);
+  background: rgba(0, 212, 170, 0.08);
+  border: 1px solid rgba(0, 212, 170, 0.15);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: 50%;
+  transform: translateX(50%);
+  width: 24px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px var(--color-accent-glow);
+}
+
+/* ── Status Indicator ── */
+.navbar-status {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-4);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  background: var(--color-safe-bg);
+  color: var(--color-safe);
+  border: var(--border-safe);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .navbar-logo .logo-text {
+    display: none;
+  }
+  .nav-link span:not(.nav-icon) {
+    display: none;
+  }
+  .nav-link {
+    padding: var(--sp-2) var(--sp-3);
+  }
+  .navbar-status span {
+    display: none;
+  }
+}

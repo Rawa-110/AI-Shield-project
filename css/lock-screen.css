@@ -1,0 +1,252 @@
+/* ============================================
+   Full Device Lock Screen Overlay
+   ============================================ */
+
+.lock-screen-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-6);
+  background: linear-gradient(135deg, #1a0008 0%, #2d0000 30%, #0d0000 70%, #1a0008 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out);
+}
+.lock-screen-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Animated Background Grid ── */
+.lock-screen-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 300px at 30% 30%, rgba(255, 23, 68, 0.12), transparent),
+    radial-gradient(circle 250px at 70% 60%, rgba(213, 0, 0, 0.08), transparent);
+  animation: lockBgPulse 3s ease-in-out infinite alternate;
+}
+@keyframes lockBgPulse {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* ── Danger Scan Lines ── */
+.lock-screen-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 23, 68, 0.03) 2px,
+    rgba(255, 23, 68, 0.03) 4px
+  );
+  pointer-events: none;
+}
+
+.lock-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-5);
+  max-width: 420px;
+  width: 90%;
+  animation: lockContentIn 0.5s var(--ease-spring);
+}
+@keyframes lockContentIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Lock Shield Icon ── */
+.lock-shield {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7f0000, var(--color-danger));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+  box-shadow:
+    0 0 40px rgba(255, 23, 68, 0.5),
+    0 0 80px rgba(255, 23, 68, 0.2),
+    inset 0 -4px 12px rgba(0,0,0,0.3);
+  animation: lockShieldPulse 2s ease-in-out infinite;
+  position: relative;
+}
+@keyframes lockShieldPulse {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(255, 23, 68, 0.5), 0 0 80px rgba(255, 23, 68, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(255, 23, 68, 0.7), 0 0 120px rgba(255, 23, 68, 0.3);
+    transform: scale(1.05);
+  }
+}
+
+.lock-shield .ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 23, 68, 0.3);
+  animation: lockRing 2.5s ease-in-out infinite;
+}
+.lock-shield .ring:nth-child(2) {
+  inset: -18px;
+  border-color: rgba(255, 23, 68, 0.15);
+  animation-delay: 0.5s;
+}
+
+@keyframes lockRing {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* ── Lock Text ── */
+.lock-title {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-extrabold);
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(255, 23, 68, 0.4);
+}
+
+.lock-subtitle {
+  font-size: var(--fs-sm);
+  color: rgba(255, 180, 180, 0.8);
+  text-align: center;
+  line-height: var(--lh-relaxed);
+}
+
+.lock-alert-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  background: rgba(255, 23, 68, 0.15);
+  color: var(--color-danger);
+  border: 1px solid rgba(255, 23, 68, 0.3);
+  animation: alertBlink 1.5s ease-in-out infinite;
+}
+@keyframes alertBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ── PIN Input ── */
+.pin-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+  padding: var(--sp-6);
+  border-radius: var(--radius-lg);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 23, 68, 0.15);
+  backdrop-filter: blur(8px);
+  width: 100%;
+}
+
+.pin-label {
+  font-size: var(--fs-sm);
+  color: rgba(255, 200, 200, 0.7);
+  text-align: center;
+}
+
+.pin-inputs {
+  display: flex;
+  gap: var(--sp-3);
+  direction: ltr;
+}
+
+.pin-digit {
+  width: 52px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  border: 2px solid rgba(255, 23, 68, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  font-family: var(--font-mono);
+  transition: all var(--tr-fast);
+  caret-color: var(--color-danger);
+}
+.pin-digit:focus {
+  outline: none;
+  border-color: var(--color-danger);
+  box-shadow: 0 0 16px rgba(255, 23, 68, 0.3);
+  background: rgba(255, 23, 68, 0.08);
+}
+.pin-digit.error {
+  border-color: var(--color-danger);
+  animation: pinShake 0.4s ease-in-out;
+}
+.pin-digit.success {
+  border-color: var(--color-safe);
+  box-shadow: 0 0 16px var(--color-safe-glow);
+}
+
+@keyframes pinShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.pin-error-msg {
+  font-size: var(--fs-xs);
+  color: var(--color-danger);
+  min-height: 1.2em;
+  text-align: center;
+}
+
+.pin-unlock-btn {
+  width: 100%;
+  padding: var(--sp-3);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  background: linear-gradient(135deg, #7f0000, var(--color-danger));
+  color: #fff;
+  transition: all var(--tr-normal);
+  border: 1px solid rgba(255, 23, 68, 0.3);
+}
+.pin-unlock-btn:hover {
+  box-shadow: 0 0 24px rgba(255, 23, 68, 0.4);
+  transform: translateY(-1px);
+}
+.pin-unlock-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Lock Footer ── */
+.lock-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-2xs);
+  color: rgba(255, 150, 150, 0.4);
+  font-family: var(--font-mono);
+}

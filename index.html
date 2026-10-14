@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="حارس الطفولة الذكي AI-Shield — نموذج تفاعلي لحماية الأطفال واليافعين من المحتوى الرقمي غير المناسب باستخدام الذكاء الاصطناعي والرؤية الحاسوبية" />
+  <meta name="keywords" content="AI-Shield, حماية الأطفال, ذكاء اصطناعي, رؤية حاسوبية, ترشيح محتوى, أمان رقمي" />
+  <meta name="author" content="مشروع حارس الطفولة الذكي — جائزة نورة الملاحي للابتكار الاجتماعي التقني" />
+
+  <title>حارس الطفولة الذكي | AI-Shield</title>
+
+  <!-- Google Fonts: Tajawal (Arabic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- CSS: Design Tokens & Base -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+
+  <!-- CSS: Components -->
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/stream-filtering.css" />
+  <link rel="stylesheet" href="css/parent-dashboard.css" />
+  <link rel="stylesheet" href="css/lock-screen.css" />
+
+  <!-- Favicon (Shield Emoji) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🛡️</text></svg>" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       Navigation Bar
+       ═══════════════════════════════════════ -->
+  <nav class="navbar" id="mainNavbar">
+    <!-- Rendered by js/navbar.js -->
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       Main App Container
+       ═══════════════════════════════════════ -->
+  <main class="app-container">
+
+    <!-- View 1: Stream Filtering Demo -->
+   <section class="page-view" id="view-stream" style="position: relative;">
+    <video src="child_vide.mp4" controls autoplay loop muted style="width: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;"></video>
+   </section>
+
+    <!-- View 2: Parent Dashboard -->
+    <section class="page-view" id="view-dashboard">
+      <!-- Rendered by js/parent-dashboard.js -->
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════
+       JavaScript Modules (Load Order Matters)
+       ═══════════════════════════════════════ -->
+  <script src="js/lock-screen.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/stream-filtering.js"></script>
+  <script src="js/parent-dashboard.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
